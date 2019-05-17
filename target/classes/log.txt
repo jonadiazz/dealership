@@ -1,0 +1,20 @@
+2019-05-17 06:58:53 WARN  Login:29 - Sign in failed. Register an account!
+2019-05-17 07:00:22 WARN  Login:29 - Sign in failed. Register an account!
+2019-05-17 07:01:40 WARN  Login:29 - Sign in failed. Register an account!
+2019-05-17 07:21:14 WARN  Login:29 - Sign in failed. Register an account!
+2019-05-17 08:38:20 WARN  Login:29 - Sign in failed. Register an account!
+2019-05-17 08:54:12 TRACE Login:44 - select * from Cars
+2019-05-17 08:54:12 ERROR Login:10 - class java.sql.SQLException: Fail to convert to internal representation
+2019-05-17 08:54:12 WARN  Login:13 - 145 oracle.jdbc.driver.CharCommonAccessor
+2019-05-17 08:54:12 WARN  Login:13 - 518 oracle.jdbc.driver.T4CVarcharAccessor
+2019-05-17 08:54:12 WARN  Login:13 - 199 oracle.jdbc.driver.GeneratedStatement
+2019-05-17 08:54:12 WARN  Login:13 - 246 oracle.jdbc.driver.GeneratedScrollableResultSet
+2019-05-17 08:54:12 WARN  Login:13 - 556 oracle.jdbc.driver.GeneratedResultSet
+2019-05-17 08:54:12 WARN  Login:13 - 49 com.revature.login.Login
+2019-05-17 08:54:12 WARN  Login:13 - 35 com.revature.driver.Driver
+2019-05-17 08:54:12 WARN  Login:56 - Sign in failed. Register an account!
+2019-05-17 09:01:12 TRACE Login:44 - select * from Cars
+2019-05-17 09:01:12 TRACE Login:49 - 2002 2500
+2019-05-17 09:01:12 TRACE Login:49 - 1996 1000
+2019-05-17 09:01:12 TRACE Login:49 - 2019 35000
+2019-05-17 09:01:12 WARN  Login:57 - Sign in failed. Register an account!
