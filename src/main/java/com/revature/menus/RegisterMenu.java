@@ -32,4 +32,10 @@ public class RegisterMenu extends Menu {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public Menu runMenu() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

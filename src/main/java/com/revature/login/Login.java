@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 import com.revature.login.Validate;
 import com.revature.menus.Menu;
 import com.revature.menus.MenuFactory;
+import com.revature.services.AccountService;
+import com.revature.services.AccountServiceOracle;
 import com.revature.utils.DBConnection;
 import com.revature.beans.Account;
 import com.revature.enums.UserType;
@@ -27,7 +29,9 @@ public class Login extends AccountInfo {
 	}
 
 	public Account signIn(Account account) {
-		Account existingAccount = isAccountExistant(account.getUsername(), account.getPassword());
+		AccountService as = new AccountServiceOracle();
+
+		Account existingAccount = as.getAccount(account.getUsername(), account.getPassword());
 		
 		if (null != existingAccount) {
 			

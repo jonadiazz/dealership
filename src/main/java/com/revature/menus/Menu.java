@@ -27,5 +27,6 @@ public abstract class Menu {
 		printMenu(tmp);
 	}
 
+	public abstract Menu runMenu();
 
 }

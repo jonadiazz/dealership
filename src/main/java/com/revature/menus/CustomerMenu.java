@@ -20,4 +20,10 @@ public class CustomerMenu extends Menu {
 		return ValidateUserSelectedOption.getInstance().validateOption(optionsAsCustomer.length);
 		// TODO Auto-generated method stub
 	}
+
+	@Override
+	public Menu runMenu() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
