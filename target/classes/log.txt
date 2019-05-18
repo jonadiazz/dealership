@@ -18,3 +18,209 @@
 2019-05-17 09:01:12 TRACE Login:49 - 1996 1000
 2019-05-17 09:01:12 TRACE Login:49 - 2019 35000
 2019-05-17 09:01:12 WARN  Login:57 - Sign in failed. Register an account!
+2019-05-17 09:02:14 TRACE Login:44 - select * from Cars
+2019-05-17 09:02:14 TRACE Login:49 - HONDA 2002
+2019-05-17 09:02:14 TRACE Login:49 - INFINITI 1996
+2019-05-17 09:02:14 TRACE Login:49 - TESLA 2019
+2019-05-17 09:02:14 WARN  Login:57 - Sign in failed. Register an account!
+2019-05-17 13:32:47 TRACE Login:45 - select * from Accounts
+2019-05-17 13:32:47 TRACE Login:50 - jonadiazz easy
+2019-05-17 13:32:47 TRACE Login:50 - jvasquez easy2
+2019-05-17 19:13:00 TRACE Login:43 - select * from Accounts
+2019-05-17 19:13:00 TRACE Login:48 - jonadiazz easy
+2019-05-17 19:13:00 TRACE Login:48 - jvasquez easy2
+2019-05-17 19:24:21 TRACE Login:44 - select * from Accounts
+2019-05-17 19:24:21 TRACE Login:53 - jonadiazz easy
+2019-05-17 19:24:21 TRACE Login:53 - jvasquez easy2
+2019-05-17 19:28:03 TRACE Login:44 - select * from Accounts
+2019-05-17 19:28:04 TRACE Login:53 - jonadiazz easy
+2019-05-17 19:28:04 TRACE Login:53 - jvasquez easy2
+2019-05-17 19:28:42 TRACE Login:44 - select * from Accounts
+2019-05-17 19:28:42 TRACE Login:53 - jonadiazz easy
+2019-05-17 19:28:42 TRACE Login:53 - jvasquez easy2
+2019-05-17 19:30:11 TRACE Login:44 - select * from Accounts
+2019-05-17 19:55:08 TRACE Login:44 - select * from Accounts
+2019-05-17 19:55:08 TRACE Login:53 - jonadiazz easy
+2019-05-17 19:55:08 TRACE Login:53 - jvasquez easy2
+2019-05-17 19:55:19 TRACE Login:44 - select * from Accounts
+2019-05-17 20:32:05 TRACE AccountInfo:29 - select * from Accounts
+2019-05-17 20:38:49 TRACE AccountInfo:29 - select * from Accounts
+2019-05-17 20:39:06 TRACE AccountInfo:29 - select * from Accounts
+2019-05-17 20:40:07 TRACE AccountInfo:29 - select * from Accounts
+2019-05-17 21:54:04 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 21:54:18 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 22:08:16 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 22:15:28 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 22:15:29 ERROR AccountOracle:15 - class java.sql.SQLSyntaxErrorException: ORA-00933: SQL command not properly ended
+
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 509 oracle.jdbc.driver.T4CTTIoer11
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 461 oracle.jdbc.driver.T4CTTIoer11
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 1104 oracle.jdbc.driver.T4C8Oall
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 550 oracle.jdbc.driver.T4CTTIfun
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 268 oracle.jdbc.driver.T4CTTIfun
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 655 oracle.jdbc.driver.T4C8Oall
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 270 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 91 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 970 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 1205 oracle.jdbc.driver.OracleStatement
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 3666 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 1426 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 3756 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 3736 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 1063 oracle.jdbc.driver.OraclePreparedStatementWrapper
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 31 com.revature.data.AccountOracle
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 13 com.revature.services.AccountServiceOracle
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 31 com.revature.login.RegisterAccount
+2019-05-17 22:15:29 WARN  AccountOracle:18 - 49 com.revature.driver.Driver
+2019-05-17 22:18:08 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 22:18:09 TRACE AccountOracle:40 - Account not created!
+2019-05-17 22:21:07 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 22:21:08 TRACE AccountOracle:22 - com.revature.beans.Account@6c6cb480
+2019-05-17 22:21:08 TRACE AccountOracle:40 - Account not created!
+2019-05-17 22:22:28 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 22:22:29 TRACE AccountOracle:22 - jj
+2019-05-17 22:22:29 TRACE AccountOracle:40 - Account not created!
+2019-05-17 22:23:44 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 22:23:45 TRACE AccountOracle:22 - jonah
+2019-05-17 22:23:45 ERROR AccountOracle:15 - class java.sql.SQLException: Invalid argument(s) in call
+2019-05-17 22:23:45 WARN  AccountOracle:18 - 189 oracle.jdbc.driver.AutoKeyInfo
+2019-05-17 22:23:45 WARN  AccountOracle:18 - 4656 oracle.jdbc.driver.PhysicalConnection
+2019-05-17 22:23:45 WARN  AccountOracle:18 - 28 com.revature.data.AccountOracle
+2019-05-17 22:23:45 WARN  AccountOracle:18 - 13 com.revature.services.AccountServiceOracle
+2019-05-17 22:23:45 WARN  AccountOracle:18 - 31 com.revature.login.RegisterAccount
+2019-05-17 22:23:45 WARN  AccountOracle:18 - 49 com.revature.driver.Driver
+2019-05-17 22:27:53 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 22:28:04 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 22:28:05 TRACE AccountOracle:22 - jonah 
+2019-05-17 22:29:40 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 22:29:47 TRACE AccountInfo:31 - select * from Accounts
+2019-05-17 22:29:47 TRACE AccountOracle:22 - jonah
+2019-05-17 22:29:48 TRACE AccountOracle:36 - Account created.
+2019-05-18 06:37:39 TRACE AccountInfo:31 - select * from Accounts
+2019-05-18 06:37:48 TRACE AccountInfo:31 - select * from Accounts
+2019-05-18 06:38:01 TRACE AccountInfo:31 - select * from Accounts
+2019-05-18 06:38:02 TRACE AccountOracle:22 - minime
+2019-05-18 06:38:02 TRACE AccountOracle:36 - Account created.
+2019-05-18 06:57:35 TRACE AccountInfo:31 - select * from Accounts
+2019-05-18 07:56:16 TRACE AccountInfo:32 - select * from Accounts
+2019-05-18 07:56:17 TRACE AccountOracle:22 - jj
+2019-05-18 07:56:17 ERROR AccountOracle:15 - class java.sql.SQLIntegrityConstraintViolationException: ORA-01400: cannot insert NULL into ("CARDEALERSHIP"."ACCOUNTS"."ACCOUNT_ID")
+
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 509 oracle.jdbc.driver.T4CTTIoer11
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 461 oracle.jdbc.driver.T4CTTIoer11
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 1104 oracle.jdbc.driver.T4C8Oall
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 550 oracle.jdbc.driver.T4CTTIfun
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 268 oracle.jdbc.driver.T4CTTIfun
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 655 oracle.jdbc.driver.T4C8Oall
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 270 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 91 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 970 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 1205 oracle.jdbc.driver.OracleStatement
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 3666 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 1426 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 3756 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 3736 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 1063 oracle.jdbc.driver.OraclePreparedStatementWrapper
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 32 com.revature.data.AccountOracle
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 13 com.revature.services.AccountServiceOracle
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 38 com.revature.login.RegisterAccount
+2019-05-18 07:56:17 WARN  AccountOracle:18 - 51 com.revature.driver.Driver
+2019-05-18 07:56:18 TRACE AccountInfo:32 - select * from Accounts
+2019-05-18 07:59:17 TRACE AccountInfo:32 - select * from Accounts
+2019-05-18 07:59:18 TRACE AccountOracle:23 - jj
+2019-05-18 07:59:18 ERROR AccountOracle:15 - class java.sql.SQLIntegrityConstraintViolationException: ORA-01400: cannot insert NULL into ("CARDEALERSHIP"."ACCOUNTS"."ACCOUNT_ID")
+
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 509 oracle.jdbc.driver.T4CTTIoer11
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 461 oracle.jdbc.driver.T4CTTIoer11
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 1104 oracle.jdbc.driver.T4C8Oall
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 550 oracle.jdbc.driver.T4CTTIfun
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 268 oracle.jdbc.driver.T4CTTIfun
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 655 oracle.jdbc.driver.T4C8Oall
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 270 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 91 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 970 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 1205 oracle.jdbc.driver.OracleStatement
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 3666 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 1426 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 3756 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 3736 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 1063 oracle.jdbc.driver.OraclePreparedStatementWrapper
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 34 com.revature.data.AccountOracle
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 13 com.revature.services.AccountServiceOracle
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 38 com.revature.login.RegisterAccount
+2019-05-18 07:59:18 WARN  AccountOracle:18 - 51 com.revature.driver.Driver
+2019-05-18 07:59:19 TRACE AccountInfo:32 - select * from Accounts
+2019-05-18 08:18:42 TRACE AccountInfo:32 - select * from Accounts
+2019-05-18 08:18:51 TRACE AccountInfo:32 - select * from Accounts
+2019-05-18 08:19:03 TRACE AccountInfo:32 - select * from Accounts
+2019-05-18 08:19:04 TRACE AccountOracle:23 - easy
+2019-05-18 08:19:04 ERROR AccountOracle:15 - class java.sql.SQLIntegrityConstraintViolationException: ORA-00001: unique constraint (CARDEALERSHIP.ACCOUNT_ID_PK) violated
+
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 509 oracle.jdbc.driver.T4CTTIoer11
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 461 oracle.jdbc.driver.T4CTTIoer11
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 1104 oracle.jdbc.driver.T4C8Oall
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 550 oracle.jdbc.driver.T4CTTIfun
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 268 oracle.jdbc.driver.T4CTTIfun
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 655 oracle.jdbc.driver.T4C8Oall
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 270 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 91 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 970 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 1205 oracle.jdbc.driver.OracleStatement
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 3666 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 1426 oracle.jdbc.driver.T4CPreparedStatement
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 3756 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 3736 oracle.jdbc.driver.OraclePreparedStatement
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 1063 oracle.jdbc.driver.OraclePreparedStatementWrapper
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 34 com.revature.data.AccountOracle
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 13 com.revature.services.AccountServiceOracle
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 38 com.revature.login.RegisterAccount
+2019-05-18 08:19:04 WARN  AccountOracle:18 - 51 com.revature.driver.Driver
+2019-05-18 08:19:04 TRACE AccountInfo:32 - select * from Accounts
+2019-05-18 08:22:45 TRACE AccountInfo:32 - select * from Accounts
+2019-05-18 08:22:46 TRACE AccountOracle:23 - easy
+2019-05-18 08:22:46 TRACE AccountOracle:38 - Account created.
+2019-05-18 08:22:47 TRACE AccountInfo:32 - select * from Accounts
+2019-05-18 08:53:44 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 08:54:54 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 08:55:36 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 08:56:41 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 08:57:41 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 08:57:54 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 08:58:06 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 08:58:06 TRACE AccountOracle:23 - jonadiazz
+2019-05-18 08:58:06 TRACE AccountOracle:38 - Account created.
+2019-05-18 09:07:54 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 09:08:28 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 09:08:29 TRACE AccountOracle:23 - jonadiazz
+2019-05-18 09:08:29 TRACE AccountOracle:38 - Account created.
+2019-05-18 09:12:37 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 09:12:44 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 09:14:28 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 09:14:28 TRACE Login:28 - Account already registed, try to log in instead!
+2019-05-18 09:15:29 TRACE AccountInfo:33 - select * from Accounts
+2019-05-18 09:41:01 TRACE Login:28 - Account already registed, try to log in instead!
+2019-05-18 09:41:41 TRACE Login:28 - Account already registed, try to log in instead!
+2019-05-18 09:51:06 TRACE Driver:48 - EMPLOYEE
+2019-05-18 09:52:09 INFO  Driver:44 - Signing in
+2019-05-18 09:52:35 INFO  Driver:45 - Signing in
+2019-05-18 09:52:48 INFO  Driver:45 - Signing in
+2019-05-18 09:52:48 TRACE Driver:48 - EMPLOYEE
+2019-05-18 09:55:27 INFO  Driver:45 - Signing in
+2019-05-18 09:55:27 TRACE Driver:48 - EMPLOYEE
+2019-05-18 09:57:29 INFO  Driver:45 - Signing in
+2019-05-18 09:57:29 TRACE Driver:48 - xEMPLOYEEx
+2019-05-18 09:58:09 INFO  Driver:45 - Signing in
+2019-05-18 09:58:09 TRACE Driver:48 - xEMPLOYEEx
+2019-05-18 10:02:27 INFO  Driver:45 - Signing in
+2019-05-18 10:02:27 TRACE Driver:48 - CUSTOMER
+2019-05-18 10:06:38 INFO  Driver:45 - Signing in
+2019-05-18 10:06:38 TRACE Driver:48 - EMPLOYEE
+2019-05-18 10:30:03 INFO  Driver:49 - Signing in
+2019-05-18 10:30:03 TRACE Driver:52 - CUSTOMER
+2019-05-18 10:32:20 TRACE Login:28 - Account already registed, try to log in instead!
+2019-05-18 10:33:08 TRACE AccountOracle:23 - random
+2019-05-18 10:33:09 TRACE AccountOracle:38 - Account created.
+2019-05-18 10:57:46 TRACE Login:29 - Account already registered, try to log in instead!
+2019-05-18 10:58:03 TRACE Login:29 - Account already registered, try to log in instead!
+2019-05-18 10:58:13 INFO  AccountOracle:25 - Username: customer
+2019-05-18 10:58:14 INFO  AccountOracle:40 - Account created.

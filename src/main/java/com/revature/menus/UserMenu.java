@@ -4,7 +4,7 @@ import com.revature.menus.Menu;
 import com.revature.menus.ValidateUserSelectedOption;
 
 public class UserMenu extends Menu {
-    String[] optionsAsUser = {"Login", "Register for customer account"};
+    String[] optionsAsUser = {"Login", "Register for customer account", "View cars on lot", "Quit"};
 
 	@Override
 	public void showOptions() {

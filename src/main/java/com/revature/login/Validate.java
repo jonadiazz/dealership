@@ -29,7 +29,7 @@ public class Validate {
 				username = scan.nextLine();
 //				}
 				
-				System.out.println(username);
+//				System.out.println(username);
 //				connection = DBConnection.getConnect();
 				
 			} catch(Exception e) {
@@ -48,8 +48,13 @@ public class Validate {
 	
 
 	public String validatePassword() {
+		Scanner scan = new Scanner(System.in);
+		String password = "";
+		
+		System.out.print("Enter password: ");
+		password = scan.nextLine();
 		// TODO Auto-generated method stub
-		return null;
+		return password;
 	}
 
 }

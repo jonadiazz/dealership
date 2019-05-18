@@ -4,5 +4,5 @@ public enum UserType {
 	CUSTOMER,
 	SYSTEM,
 	EMPLOYEE,
-	USER;
+	USER, REGISTER;
 }

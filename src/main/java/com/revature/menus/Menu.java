@@ -1,5 +1,7 @@
 package com.revature.menus;
 
+import java.util.List;
+
 public abstract class Menu {
 	
 	public abstract void showOptions();
@@ -13,6 +15,16 @@ public abstract class Menu {
 		}
 		
 		System.out.println();
+	}
+	
+	public void printMenu(List<String> options) {
+		String[] tmp = new String[options.size()];
+		
+		for (int i = 0; i < options.size(); i++) {
+			tmp[i] = options.get(i);
+		}
+		
+		printMenu(tmp);
 	}
 
 

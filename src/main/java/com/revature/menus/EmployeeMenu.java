@@ -6,7 +6,7 @@ import com.revature.menus.ValidateUserSelectedOption;
 public class EmployeeMenu extends Menu {
 
     String [] optionsAsEmployee = 
-    	{"Add a car",  "Accept or reject offer for a car", "Remove a car", "View all payments", };
+    	{"Add a car",  "Accept or reject offer for a car", "Remove a car", "View all payments", "Sign out", };
 
 	@Override
 	public void showOptions() {

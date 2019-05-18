@@ -2,11 +2,16 @@ package com.revature.menus;
 
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import com.revature.menus.ValidateUserSelectedOption;
+import com.revature.driver.Driver;
 import com.revature.menus.NonOptionException;
 
 public class ValidateUserSelectedOption {
 	
+	private static Logger log = Logger.getLogger(ValidateUserSelectedOption.class);
+
 	private static final ValidateUserSelectedOption validate = new ValidateUserSelectedOption();
 	
 	private ValidateUserSelectedOption() {
@@ -31,7 +36,7 @@ public class ValidateUserSelectedOption {
 				// TODO Auto-generated method stub
 			} catch (Exception e) {
 				scan.next();
-				System.out.printf("Invalid input. Try again\n\n");
+				log.info("Invalid input. Try again\n\n");
 				continue;
 			}
 			break;
