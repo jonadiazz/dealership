@@ -57,5 +57,41 @@ public class CarServiceOracle implements CarService {
 		// TODO Auto-generated method stub
 	}
 	
+	@Override
+	public Integer viewPendingOffers() {
+		// TODO Auto-generated method stub
+		carDAO.viewPendingOffers();
+		return null;
+	}
+	
+	@Override
+	public Integer makeOffer() {
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Select a car: ");
+		Integer carId = scan.nextInt();
+		System.out.print("Initial payment amount: ");
+		Integer initialPaymentAmount = scan.nextInt();
+		System.out.print("How many months of financing: ");
+		Integer monthsOfFinancing = scan.nextInt();
+		
+		return carDAO.makeOffer(carId, initialPaymentAmount, monthsOfFinancing);
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Car> getCarsOwned() {
+		return carDAO.getCarsOwned();
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public Integer acceptRejectOffers() {
+		// TODO Auto-generated method stub
+		return carDAO.acceptRejectOffers();
+	}
+
+
+	
 
 }

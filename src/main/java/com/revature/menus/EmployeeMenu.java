@@ -35,33 +35,36 @@ public class EmployeeMenu extends Menu {
 	public Menu runMenu() {
 		this.showOptions();
 		int option = retrieveUserInputOption();
+		CarService cs = new CarServiceOracle();
 		
 		pickedOption: switch(option) {
+			case 6:
+				cs.viewPendingOffers();
+				MenuFactory.getMenu(UserType.EMPLOYEE).runMenu();
+				break;
+			case 2:
+				cs.acceptRejectOffers();
+				break;
 			case 7:
 				MenuFactory.getMenu(UserType.USER).runMenu();
 				break pickedOption;
 			case 1:
-				CarService cs = new CarServiceOracle();
 				cs.addCar();
 				MenuFactory.getMenu(UserType.EMPLOYEE).runMenu();
 				break pickedOption;
-			case 5:
-				CarService cso = new CarServiceOracle();
-				
-				if (null != cso) {
+			case 5:				
+				if (null != cs) {
 					System.out.println(" \t Brand \t\t Year \t\t Price");
-					for (Car car: cso.getCars()) {
+					for (Car car: cs.getCars()) {
 						System.out.printf("%s\t b: %s \t y: %s \t p: $%s\n", car.getCar_id(), car.getBrand(), car.getYear(), car.getPrice());
 					}
 				}
 				MenuFactory.getMenu(UserType.EMPLOYEE).runMenu();
 				break pickedOption;
 			case 3:
-				CarService csoDelete = new CarServiceOracle();
-				
-				if (null != csoDelete) {
+				if (null != cs) {
 					log.info("Removing car from lot.");
-					csoDelete.removeCar();
+					cs.removeCar();
 				}
 				
 				MenuFactory.getMenu(UserType.EMPLOYEE).runMenu();

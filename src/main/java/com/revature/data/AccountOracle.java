@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 
 import com.revature.beans.Account;
 import com.revature.enums.UserType;
+import com.revature.session.Session;
 import com.revature.utils.DBConnection;
 import com.revature.utils.LogUtil;
 
@@ -39,6 +40,7 @@ public class AccountOracle implements AccountDAO {
 			if (rs.next()) {
 				log.info("Account created.");
 				key = rs.getInt(1);
+				Session.ID = String.valueOf(key);
 				account.setId(key);
 				conn.commit();
 			} else {
@@ -73,8 +75,9 @@ public class AccountOracle implements AccountDAO {
 					Account account;
 					
 					account = new Account(username, rs.getString("password"));
+					account.setId(Integer.valueOf(rs.getString("account_id")));
 					account.setAccountType(rs.getString("account_type"));
-					
+					Session.ID = rs.getString("account_id");
 					return account;
 				}
 			}

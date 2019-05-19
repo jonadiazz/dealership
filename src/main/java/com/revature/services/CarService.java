@@ -11,5 +11,10 @@ public interface CarService {
 	public List<Car> getCars();
 	public void addCar();
 	public Integer removeCar();
+	public Integer makeOffer();
 	
+	List<Car> getCarsOwned();
+	
+	public Integer acceptRejectOffers();
+	public Integer viewPendingOffers();
 }

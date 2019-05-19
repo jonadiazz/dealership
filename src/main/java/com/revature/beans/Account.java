@@ -49,7 +49,7 @@ public class Account {
 		// TODO Auto-generated method stub
 	}
 	
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 	

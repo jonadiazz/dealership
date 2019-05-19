@@ -7,6 +7,7 @@ import com.revature.menus.Menu;
 import com.revature.menus.MenuFactory;
 import com.revature.services.AccountService;
 import com.revature.services.AccountServiceOracle;
+import com.revature.session.Session;
 import com.revature.utils.DBConnection;
 import com.revature.beans.Account;
 import com.revature.enums.UserType;
@@ -36,6 +37,7 @@ public class Login extends AccountInfo {
 		if (null != existingAccount) {
 			
 			if (existingAccount.getPassword().equals(account.getPassword())) {
+				Session.ID = existingAccount.getId().toString();
 				return existingAccount;
 			}
 		}

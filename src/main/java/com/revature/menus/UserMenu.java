@@ -11,6 +11,7 @@ import com.revature.menus.Menu;
 import com.revature.menus.ValidateUserSelectedOption;
 import com.revature.services.CarService;
 import com.revature.services.CarServiceOracle;
+import com.revature.session.Session;
 
 public class UserMenu extends Menu {
     String[] optionsAsUser = {"Login", "Register for customer account", "View cars on lot", "Quit"};
@@ -36,6 +37,9 @@ public class UserMenu extends Menu {
 				
 				if (null != account) {
 					log.trace(account.getAccountType());
+					Session.Username = account.getUsername();
+					Session.Password = account.getPassword();
+					Session.ID = account.getId().toString();
 					MenuFactory.getMenu(account.getAccountType()).runMenu();
 				} else {
 					log.info("Failed to log in!");

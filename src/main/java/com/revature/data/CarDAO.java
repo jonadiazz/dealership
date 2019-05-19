@@ -11,4 +11,9 @@ public interface CarDAO {
 	List<Car> getCars();
 	
 	Integer removeCar(Integer key);
+	Integer makeOffer(Integer carId, Integer initialPaymentAmount, Integer monthsOfFinancing);
+	List<Car> getCarsOwned();
+	Integer acceptRejectOffers();
+	Integer viewPendingOffers();
+	
 }
