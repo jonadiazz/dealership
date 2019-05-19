@@ -40,13 +40,13 @@ public class UserMenu extends Menu {
 					Session.Username = account.getUsername();
 					Session.Password = account.getPassword();
 					Session.ID = account.getId().toString();
-					MenuFactory.getMenu(account.getAccountType()).runMenu();
+					return MenuFactory.getMenu(account.getAccountType());
 				} else {
 					log.info("Failed to log in!");
-					this.runMenu();
+					return MenuFactory.getMenu(UserType.USER);
 				}
 				
-				break pickedOption;
+//				break pickedOption;
 				
 			case 2:
 				Account accountCreated = registerAccount.register();
@@ -55,12 +55,12 @@ public class UserMenu extends Menu {
 					account = login.signIn(accountCreated);
 					log.info("Account type: " + account.getAccountType());
 					
-					MenuFactory.getMenu(account.getAccountType()).runMenu();
+					return MenuFactory.getMenu(account.getAccountType());
 				}
 				
-				MenuFactory.getMenu(UserType.USER).runMenu();
+				return MenuFactory.getMenu(UserType.USER);
 		
-				break pickedOption;
+//				break pickedOption;
 				
 			case 4:
 				System.exit(1);
@@ -74,7 +74,7 @@ public class UserMenu extends Menu {
 						System.out.printf("%s\t b: %s \t y: %s \t p: $%s\n", car.getCar_id(), car.getBrand(), car.getYear(), car.getPrice());
 					}
 				}
-				MenuFactory.getMenu(UserType.USER).runMenu();
+				return MenuFactory.getMenu(UserType.USER);
 		}
 		
 		return null;

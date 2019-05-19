@@ -18,11 +18,8 @@ public class Driver {
     	UserType user = UserType.USER;
     	Menu menu = MenuFactory.getMenu(user);
 
-    	menu.runMenu();
-//    	mainLoop: while(true) {
-//    		if (menu instanceof UserMenu) {
-//    			
-//    		}
-//    	}
+    	while(true) {
+    		menu = menu.runMenu();
+    	}
     }
 }

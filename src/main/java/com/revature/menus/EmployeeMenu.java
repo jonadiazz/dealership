@@ -40,18 +40,18 @@ public class EmployeeMenu extends Menu {
 		pickedOption: switch(option) {
 			case 6:
 				cs.viewPendingOffers();
-				MenuFactory.getMenu(UserType.EMPLOYEE).runMenu();
-				break;
+				return MenuFactory.getMenu(UserType.EMPLOYEE);
+//				break;
 			case 2:
 				cs.acceptRejectOffers();
 				break;
 			case 7:
-				MenuFactory.getMenu(UserType.USER).runMenu();
-				break pickedOption;
+				return MenuFactory.getMenu(UserType.USER);
+//				break pickedOption;
 			case 1:
 				cs.addCar();
-				MenuFactory.getMenu(UserType.EMPLOYEE).runMenu();
-				break pickedOption;
+				return MenuFactory.getMenu(UserType.EMPLOYEE);
+//				break pickedOption;
 			case 5:				
 				if (null != cs) {
 					System.out.println(" \t Brand \t\t Year \t\t Price");
@@ -59,16 +59,16 @@ public class EmployeeMenu extends Menu {
 						System.out.printf("%s\t b: %s \t y: %s \t p: $%s\n", car.getCar_id(), car.getBrand(), car.getYear(), car.getPrice());
 					}
 				}
-				MenuFactory.getMenu(UserType.EMPLOYEE).runMenu();
-				break pickedOption;
+				return MenuFactory.getMenu(UserType.EMPLOYEE);
+//				break pickedOption;
 			case 3:
 				if (null != cs) {
 					log.info("Removing car from lot.");
 					cs.removeCar();
 				}
 				
-				MenuFactory.getMenu(UserType.EMPLOYEE).runMenu();
-				break pickedOption;
+				return MenuFactory.getMenu(UserType.EMPLOYEE);
+//				break pickedOption;
 		}
 		// TODO Auto-generated method stub
 		return null;

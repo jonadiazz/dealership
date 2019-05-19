@@ -44,8 +44,8 @@ public class CustomerMenu extends Menu {
 						System.out.printf("%s \t %s \t %s\n", car.getCar_id(), car.getBrand(), car.getYear());
 					}
 				}
-				MenuFactory.getMenu(UserType.CUSTOMER).runMenu();
-				break;
+				return MenuFactory.getMenu(UserType.CUSTOMER);
+//				break;
 			case 1:
 				log.info("Making offer for a car");
 				System.out.print("Pick a car: ");
@@ -57,8 +57,8 @@ public class CustomerMenu extends Menu {
 					System.out.printf("%s are your monthly payments.\n", mp);
 					log.info("Offer submitted");
 				}
-				MenuFactory.getMenu(UserType.CUSTOMER).runMenu();
-				break pickedOption;
+				return MenuFactory.getMenu(UserType.CUSTOMER);
+//				break pickedOption;
 			case 2:
 				CarService cso = new CarServiceOracle();
 				
@@ -68,11 +68,11 @@ public class CustomerMenu extends Menu {
 						System.out.printf("%s\t b: %s \t y: %s \t p: $%s\n", car.getCar_id(), car.getBrand(), car.getYear(), car.getPrice());
 					}
 				}
-				MenuFactory.getMenu(UserType.CUSTOMER).runMenu();
-				break pickedOption;
+				return MenuFactory.getMenu(UserType.CUSTOMER);
+//				break pickedOption;
 			case 5:
-				MenuFactory.getMenu(UserType.USER).runMenu();
-				break pickedOption;
+				return MenuFactory.getMenu(UserType.USER);
+//				break pickedOption;
 		}
 		// TODO Auto-generated method stub
 		return null;
