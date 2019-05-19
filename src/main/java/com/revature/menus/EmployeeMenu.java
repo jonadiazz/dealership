@@ -44,7 +44,8 @@ public class EmployeeMenu extends Menu {
 //				break;
 			case 2:
 				cs.acceptRejectOffers();
-				break;
+				
+				return MenuFactory.getMenu(UserType.EMPLOYEE);
 			case 7:
 				return MenuFactory.getMenu(UserType.USER);
 //				break pickedOption;

@@ -1,9 +1,11 @@
 package com.revature.data;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -164,8 +166,10 @@ public class CarOracle implements CarDAO {
 	
 	@Override
 	public Integer makeOffer(Integer carId, Integer initialPaymentAmount, Integer monthsOfFinancing) {
-//		String sql = "select * from Make_offer join cars on (make_offer.car_id = cars.car_id) join Accounts on (Make_offer.Customer_id = Accounts.Account_id)";
 		String sql = "insert into Make_offer (down_payment, customer_id, car_id, financing, make_offer_id) values (?,?,?,?, make_offer_id.nextval)";
+		
+		/** Stored procedure **/
+		String sql2 = "{call monthly_pay (?,?,?,?)}";
 		
 		Connection conn = cu.getConnection();
 		
@@ -179,32 +183,33 @@ public class CarOracle implements CarDAO {
 			log.info(Session.ID);
 			
 			int result = stmt.executeUpdate();
-			
-//			ResultSet rs = stmt.getGeneratedKeys();
-			
-			Car car = getCarById(carId);
-			
-			int monthlyPay = (Integer.valueOf(car.getPrice()) - initialPaymentAmount) / monthsOfFinancing;
-			
+									
 			if (result == 1) {
 				conn.commit();
 			} else {
 				conn.rollback();
 			}
 			
-			return monthlyPay;
-//			while (rs.next()) {
-//				
-//			}
+			int monthly = 0;
+			
+			CallableStatement callableStmt = conn.prepareCall(sql2);
+			callableStmt.setInt(1, Integer.valueOf(getCarById(carId).getPrice()));
+			callableStmt.setInt(2, initialPaymentAmount);
+			callableStmt.setInt(3, monthsOfFinancing);
+			callableStmt.registerOutParameter(4, Types.INTEGER);
+			
+			callableStmt.execute();
+			
+			monthly = callableStmt.getInt(4);
+
+			return monthly;
 			
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
 			return null;
 		}
 		
-//		log.info(Session.Username);		
 		// TODO Auto-generated method stub
-//		return null;
 	}
 
 	private Car getCarById(Integer carId) {
@@ -253,7 +258,24 @@ public class CarOracle implements CarDAO {
 
 	@Override
 	public Integer acceptRejectOffers() {
-		String sql = "";
+		String sql = "{call welcome_msg (?)}";
+		
+		Connection conn = cu.getConnection();
+		
+		try {
+			CallableStatement stmt = conn.prepareCall(sql);
+			
+			stmt.setString(1, "Tierno");
+			int result = stmt.executeUpdate();
+//			
+			if (result == 1) {
+				System.out.println("Executed stored procedure.");
+			} else {
+				log.info("Not executed procedure.");
+			}
+		} catch (SQLException e) {
+			LogUtil.logException(e, Log.class);
+		}
 		// TODO Auto-generated method stub
 		return null;
 	}
