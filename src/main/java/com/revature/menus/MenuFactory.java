@@ -11,36 +11,41 @@ import com.revature.enums.UserType;
 public class MenuFactory {
 
 	private MenuFactory() {
-		
 	}
-	
+
 	public static Menu getMenu(String user) {
 		if (user.equals(UserType.CUSTOMER.toString())) {
 			return new CustomerMenu();
+
 		}
-		
+
 		if (user.equals(UserType.EMPLOYEE.toString())) {
 			return new EmployeeMenu();
+
 		}
-		
+
 		if (user.equals(UserType.USER.toString())) {
 			return new UserMenu();
+
 		}
-		
+
 		if (user.equals(UserType.SYSTEM.toString())) {
 			return new SystemMenu();
+
 		}
-		
+
 		if (user.equals(UserType.REGISTER.toString())) {
 			return new RegisterMenu();
+
 		}
-		
+
 		return null;
-		
+
 	}
-	
+
 	public static Menu getMenu(UserType userType) {
 		return getMenu(userType.toString());
+
 	}
-	
+
 }

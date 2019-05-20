@@ -24,19 +24,19 @@ public class AccountOracle implements AccountDAO {
 		int key = 0;
 		Connection conn = cu.getConnection();
 		log.info("Username: " + account.getUsername());
-		
-		try {	
+
+		try {
 			conn.setAutoCommit(false);
 			String sql = "insert into accounts (username, password, account_type, account_id) values (?,?,?,account_id.nextval)";
-			String [] keys = {"account_id"};
+			String[] keys = { "account_id" };
 			PreparedStatement stmt = conn.prepareStatement(sql, keys);
 			stmt.setString(1, account.getUsername());
 			stmt.setString(2, account.getPassword());
 			stmt.setString(3, UserType.CUSTOMER.toString());
-			
+
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
-			
+
 			if (rs.next()) {
 				log.info("Account created.");
 				key = rs.getInt(1);
@@ -47,7 +47,7 @@ public class AccountOracle implements AccountDAO {
 				log.trace("Account not created!");
 				conn.rollback();
 			}
-			
+
 		} catch (SQLException e) {
 			LogUtil.rollback(e, conn, AccountOracle.class);
 		} finally {
@@ -57,23 +57,22 @@ public class AccountOracle implements AccountDAO {
 				LogUtil.logException(e, AccountOracle.class);
 			}
 		}
-		
+
 		return key;
 	}
 
 	@Override
 	public Account getAccount(String username, String password) {
 		String sql = "select * from Accounts";
-		
+
 		try (Connection conn = cu.getConnection()) {
-//			log.trace(sql);
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery(sql);
-			
+
 			while (rs.next()) {
 				if (username.equals(rs.getString("username"))) {
 					Account account;
-					
+
 					account = new Account(username, rs.getString("password"));
 					account.setId(Integer.valueOf(rs.getString("account_id")));
 					account.setAccountType(rs.getString("account_type"));
@@ -83,12 +82,11 @@ public class AccountOracle implements AccountDAO {
 			}
 		} catch (Exception e) {
 			LogUtil.logException(e, Log.class);
-			
+
 			return null;
 		}
-		
+
 		return null;
-		// TODO Auto-generated method stub
 	}
 
 }

@@ -1,8 +1,5 @@
 package com.revature.enums;
 
 public enum UserType {
-	CUSTOMER,
-	SYSTEM,
-	EMPLOYEE,
-	USER, REGISTER;
+	CUSTOMER, SYSTEM, EMPLOYEE, USER, REGISTER;
 }

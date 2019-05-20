@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
@@ -21,25 +22,25 @@ import oracle.jdbc.logging.annotations.Log;
 public class CarOracle implements CarDAO {
 	private static Logger log = Logger.getLogger(AccountOracle.class);
 	private static DBConnection cu = DBConnection.getDBConnection();
-	
+
 	@Override
 	public int addCar(Car car) {
 		int key = 0;
 		Connection conn = cu.getConnection();
 		log.info("Adding car to the lot");
-		
+
 		try {
 			conn.setAutoCommit(false);
 			String sql = "insert into cars (brand, year, price, car_id) values (?,?,?,car_id.nextval)";
-			String [] keys = {"car_id"};
+			String[] keys = { "car_id" };
 			PreparedStatement stmt = conn.prepareStatement(sql, keys);
 			stmt.setString(1, car.getBrand());
 			stmt.setString(2, car.getYear());
 			stmt.setString(3, car.getPrice());
-			
+
 			stmt.executeUpdate();
 			ResultSet rs = stmt.getGeneratedKeys();
-			
+
 			if (rs.next()) {
 				log.info("Car added to lot.");
 				key = rs.getInt(1);
@@ -58,25 +59,24 @@ public class CarOracle implements CarDAO {
 				LogUtil.logException(e, CarOracle.class);
 			}
 		}
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	
 	@Override
 	public List<Car> getCars() {
 		String sql = "select car_id, brand, year, price from Cars Minus select Car_Owner.car_id, brand, year, price from Car_Owner join Cars on (Car_Owner.car_id = Cars.car_id) join Accounts on (Car_owner.account_id = Accounts.account_id)";
 //		String sql = "select * from Cars";
 
 		List<Car> cars = new ArrayList<Car>();
-		
+
 		try (Connection conn = cu.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			
+
 			ResultSet rs = stmt.executeQuery(sql);
-			
+
 			while (rs.next()) {
-				cars.add(new Car(rs.getInt("car_id"), rs.getString("brand"), rs.getString("year"), rs.getString("price")));
+				cars.add(new Car(rs.getInt("car_id"), rs.getString("brand"), rs.getString("year"),
+						rs.getString("price")));
 			}
 			return cars;
 		} catch (Exception e) {
@@ -84,47 +84,45 @@ public class CarOracle implements CarDAO {
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Car getCar(String brand, String year, String price) {
 		String sql = "select * from Cars where brand=? and year=? and price=?";
-		
+
 		try (Connection conn = cu.getConnection()) {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, brand);
 			stmt.setString(2, year);
 			stmt.setString(3, price);
-			
+
 			ResultSet rs = stmt.executeQuery(sql);
-			
+
 			while (rs.next()) {
-				if (brand.equals(rs.getString("brand")) 
-						&& year.equals(rs.getString("year")) 
-							&& price.equals(rs.getString("price"))) {
+				if (brand.equals(rs.getString("brand")) && year.equals(rs.getString("year"))
+						&& price.equals(rs.getString("price"))) {
 					return new Car(rs.getInt("car_id"), brand, year, price);
-					
+
 				}
 			}
 		} catch (Exception e) {
 			LogUtil.logException(e, Log.class);
 			return null;
 		}
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Integer removeCar(Integer key) {
 		String sql = "delete from cars where car_id=?";
-		
+
 		try (Connection conn = cu.getConnection()) {
 			conn.setAutoCommit(false);
-			
+
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, key);
-			
+
 			int result = stmt.executeUpdate();
-			
+
 			if (result == 1) {
 				log.trace("Car removed.");
 				conn.commit();
@@ -132,47 +130,44 @@ public class CarOracle implements CarDAO {
 				log.trace("Car not removed.");
 				conn.rollback();
 			}
-//			ResultSet rs = stmt.executeQuery(sql);
-			
+
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
 			return 0;
 		}
-		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public Integer viewPendingOffers() {
-		// TODO Auto-generated method stub
-//		select * from Make_offer join cars on (make_offer.car_id = cars.car_id) join Accounts on (Make_offer.Customer_id = Accounts.Account_id);
 		String sql = "select Make_offer_id, brand, year, price, username, down_payment, financing from Make_offer join cars on (make_offer.car_id = cars.car_id) join Accounts on (Make_offer.Customer_id = Accounts.Account_id)";
 
 		Connection conn = cu.getConnection();
-		
+
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-			
+				
+			System.out.println("<Offer ID>");
 			while (rs.next()) {
-				System.out.printf("%s:  Brand= %s\tYear= %s\tPrice= %s\tDown Payment= %s\tFinancing= %s\tCustomer= %s\n\n", rs.getString("make_offer_id"), rs.getString("brand"), rs.getString("year"), rs.getString("price"), rs.getString("down_payment"), rs.getString("financing"), rs.getString("username"));
+				System.out.printf("<%s> \t %s %s at $%s, %s bids with a %s down payment and at %s months financing\n\n", rs.getString("make_offer_id"), rs.getString("year"), rs.getString("brand").toUpperCase(), rs.getString("price"), rs.getString("username").toUpperCase(), rs.getString("down_payment"), rs.getString("financing"));
 			}
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
-			
+
 		}
 		return null;
 	}
-	
+
 	@Override
 	public Integer makeOffer(Integer carId, Integer initialPaymentAmount, Integer monthsOfFinancing) {
 		String sql = "insert into Make_offer (down_payment, customer_id, car_id, financing, make_offer_id) values (?,?,?,?, make_offer_id.nextval)";
-		
+
 		/** Stored procedure **/
 		String sql2 = "{call monthly_pay (?,?,?,?)}";
-		
+
 		Connection conn = cu.getConnection();
-		
+
 		try {
 			conn.setAutoCommit(false);
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -181,106 +176,168 @@ public class CarOracle implements CarDAO {
 			stmt.setString(3, carId.toString());
 			stmt.setString(4, monthsOfFinancing.toString());
 			log.info(Session.ID);
-			
+
 			int result = stmt.executeUpdate();
-									
+
 			if (result == 1) {
 				conn.commit();
 			} else {
 				conn.rollback();
 			}
-			
+
 			int monthly = 0;
-			
+
 			CallableStatement callableStmt = conn.prepareCall(sql2);
-			callableStmt.setInt(1, Integer.valueOf(getCarById(carId).getPrice()));
+			callableStmt.setInt(1, Integer.valueOf(getCarById(carId, conn).getPrice()));
 			callableStmt.setInt(2, initialPaymentAmount);
 			callableStmt.setInt(3, monthsOfFinancing);
 			callableStmt.registerOutParameter(4, Types.INTEGER);
-			
+
 			callableStmt.execute();
-			
+
 			monthly = callableStmt.getInt(4);
 
 			return monthly;
-			
+
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
 			return null;
 		}
-		
-		// TODO Auto-generated method stub
+
 	}
 
 	private Car getCarById(Integer carId) {
+		return getCarById(carId, cu.getConnection());
+	}
+
+	private Car getCarById(Integer carId, Connection conn) {
 		String sql = "select * from Cars where car_id=?";
 		Car car = null;
-		Connection conn = cu.getConnection();
+
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, carId.toString());
-			
+
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				car = new Car(Integer.valueOf(rs.getString("car_id")), rs.getString("brand"), rs.getString("year"), rs.getString("price"));
+				car = new Car(Integer.valueOf(rs.getString("car_id")), rs.getString("brand"), rs.getString("year"),
+						rs.getString("price"));
 			}
 			return car;
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
 		}
-		// TODO Auto-generated method stub
+
 		return null;
 	}
 
 	@Override
 	public List<Car> getCarsOwned() {
 		String sql = "select Brand, Year, Price, Car_Owner.Car_id from Car_Owner join Cars on (Car_Owner.car_id = Cars.car_id) join Accounts on (Accounts.account_id =Car_Owner.account_id) and Car_Owner.account_id=?";
-		
+
 		List<Car> cars = new ArrayList<Car>();
 		Connection conn = cu.getConnection();
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.setString(1, Session.ID);
-			
+
 			ResultSet rs = stmt.executeQuery();
-			
+
 			while (rs.next()) {
-				cars.add(new Car(rs.getInt("car_id"), rs.getString("brand"), rs.getString("year"), rs.getString("price")));
+				cars.add(new Car(rs.getInt("car_id"), rs.getString("brand"), rs.getString("year"),
+						rs.getString("price")));
 			}
 			return cars;
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
 		}
-		// TODO Auto-generated method stub
+
 		return null;
 	}
-
 
 	@Override
 	public Integer acceptRejectOffers() {
-		String sql = "{call welcome_msg (?)}";
-		
+		// TODO: Validate user input assignment
+		Scanner scan = new Scanner(System.in);
+		System.out.print("Select offer to reject or accept: ");
+		int offerId = scan.nextInt();
+		scan.nextLine();
+
+		String callableSQL = "{CALL WHEN_INSERT_ON_CAR_OWNER()}";
+
+		String viewOfferSQL = "SELECT BRAND, PRICE, DOWN_PAYMENT, FINANCING, CUSTOMER_ID FROM MAKE_OFFER INNER JOIN CARS ON (MAKE_OFFER.CAR_ID = CARS.CAR_ID AND MAKE_OFFER.MAKE_OFFER_ID = ?)";
+
+		String rejectSQL = "DELETE MAKE_OFFER WHERE MAKE_OFFER.MAKE_OFFER_ID = ?";
+
+		String acceptSQL = "INSERT INTO CAR_OWNER (CAR_ID, ACCOUNT_ID, DOWN_PAYMENT, FINANCING) SELECT MAKE_OFFER.CAR_ID, MAKE_OFFER.CUSTOMER_ID, MAKE_OFFER.DOWN_PAYMENT, MAKE_OFFER.FINANCING FROM MAKE_OFFER WHERE MAKE_OFFER.MAKE_OFFER_ID = ?";
 		Connection conn = cu.getConnection();
-		
+
 		try {
-			CallableStatement stmt = conn.prepareCall(sql);
-			
-			stmt.setString(1, "Tierno");
-			int result = stmt.executeUpdate();
-//			
-			if (result == 1) {
-				System.out.println("Executed stored procedure.");
-			} else {
-				log.info("Not executed procedure.");
+			CallableStatement callableStmt = conn.prepareCall(callableSQL);
+
+			PreparedStatement viewOfferStmt = conn.prepareStatement(viewOfferSQL);
+
+			PreparedStatement acceptStmt = conn.prepareStatement(acceptSQL);
+
+			PreparedStatement rejectStmt = conn.prepareStatement(rejectSQL);
+
+			viewOfferStmt.setString(1, String.valueOf(offerId));
+
+			acceptStmt.setString(1, String.valueOf(offerId));
+
+			rejectStmt.setString(1, String.valueOf(offerId));
+
+			ResultSet rs = viewOfferStmt.executeQuery();
+
+			if (rs.next()) {
+				System.out.printf("OfferId= [%s]\tBrand= %s\tPrice %s\tDown payment= %s\tFinancing= %s\tCustomerId= %s\n",
+						offerId, rs.getString("brand"), rs.getString("price"), rs.getString("down_payment"),
+						rs.getString("financing"), rs.getString("customer_id"));
+
+				System.out.printf("[R]eject or [A]ccept this offer, enter R or A: ");
+				String acceptReject = "";
+
+				if (scan.hasNext()) {
+					acceptReject = scan.nextLine();
+					log.info(acceptReject);
+				}
+
+//				rejectStmt = conn.prepareCall(rejectSQL);
+				viewOfferStmt.setString(1, String.valueOf(offerId));
+
+				if ("R".equals(acceptReject.toUpperCase())) {
+					log.info("deleting MAKE_OFFER");
+
+					ResultSet r = rejectStmt.executeQuery();
+
+					if (r.next()) {
+						log.info("Rejected offer, removed from MAKE_OFFER table");
+					} else {
+						log.warn("Query was not properly executed.");
+					}
+
+				} else if ("A".equals(acceptReject.toUpperCase())) {
+					// TODO: Remove all other offers for the same car
+
+					rs = acceptStmt.executeQuery();
+
+					if (rs.next()) {
+						log.info("Offer accepted");
+						/** removes offer from MAKE_OFFER **/
+						callableStmt.execute();
+//						rejectStmt.executeQuery();
+
+					} else {
+						log.info("Offer not accepted, query was not properly executed");
+					}
+				}
 			}
+
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
 		}
-		// TODO Auto-generated method stub
+
 		return null;
 	}
-
-
-
 
 }
