@@ -21,5 +21,7 @@ public interface CarDAO {
 	Integer acceptRejectOffers();
 
 	Integer viewPendingOffers();
+	
+	Integer numberOfPayments();
 
 }

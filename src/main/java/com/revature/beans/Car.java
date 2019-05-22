@@ -8,18 +8,18 @@ public class Car {
 	private Integer car_id;
 
 	public Car(Integer car_id, String brand, String year, String price) {
-		this.brand = brand;
+		this.brand = brand.toUpperCase();
 		this.year = year;
 		this.price = price;
 		this.car_id = car_id;
 	}
 
 	public String getBrand() {
-		return brand;
+		return brand.toUpperCase();
 	}
 
 	public void setBrand(String brand) {
-		this.brand = brand;
+		this.brand = brand.toUpperCase();
 	}
 
 	public String getYear() {

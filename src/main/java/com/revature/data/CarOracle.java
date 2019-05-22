@@ -80,7 +80,7 @@ public class CarOracle implements CarDAO {
 			}
 			return cars;
 		} catch (Exception e) {
-			LogUtil.logException(e, Log.class);
+			LogUtil.logException(e, CarOracle.class);
 			return null;
 		}
 	}
@@ -147,10 +147,13 @@ public class CarOracle implements CarDAO {
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
-				
+
 			System.out.println("<Offer ID>");
 			while (rs.next()) {
-				System.out.printf("<%s> \t %s %s at $%s, %s bids with a %s down payment and at %s months financing\n\n", rs.getString("make_offer_id"), rs.getString("year"), rs.getString("brand").toUpperCase(), rs.getString("price"), rs.getString("username").toUpperCase(), rs.getString("down_payment"), rs.getString("financing"));
+				System.out.printf("<%s> \t %s %s at $%s, %s bids with a %s down payment and at %s months financing\n\n",
+						rs.getString("make_offer_id"), rs.getString("year"), rs.getString("brand").toUpperCase(),
+						rs.getString("price"), rs.getString("username").toUpperCase(), rs.getString("down_payment"),
+						rs.getString("financing"));
 			}
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
@@ -163,6 +166,8 @@ public class CarOracle implements CarDAO {
 	public Integer makeOffer(Integer carId, Integer initialPaymentAmount, Integer monthsOfFinancing) {
 		String sql = "insert into Make_offer (down_payment, customer_id, car_id, financing, make_offer_id) values (?,?,?,?, make_offer_id.nextval)";
 
+		List<Car> carsAvailable = getCars();
+
 		/** Stored procedure **/
 		String sql2 = "{call monthly_pay (?,?,?,?)}";
 
@@ -171,18 +176,30 @@ public class CarOracle implements CarDAO {
 		try {
 			conn.setAutoCommit(false);
 			PreparedStatement stmt = conn.prepareStatement(sql);
-			stmt.setString(1, initialPaymentAmount.toString());
-			stmt.setString(2, Session.ID);
-			stmt.setString(3, carId.toString());
-			stmt.setString(4, monthsOfFinancing.toString());
+			int result = 0;
+
+			for (Car carAvailable : carsAvailable) {
+				if (carAvailable.getCar_id() == carId) {
+					stmt.setString(1, initialPaymentAmount.toString());
+					stmt.setString(2, Session.ID);
+					stmt.setString(3, carId.toString());
+					stmt.setString(4, monthsOfFinancing.toString());
+					result = stmt.executeUpdate();
+
+					break;
+
+				}
+			}
+
 			log.info(Session.ID);
 
-			int result = stmt.executeUpdate();
-
-			if (result == 1) {
+			if (result != 0) {
 				conn.commit();
 			} else {
 				conn.rollback();
+
+				return null;
+
 			}
 
 			int monthly = 0;
@@ -232,6 +249,58 @@ public class CarOracle implements CarDAO {
 	}
 
 	@Override
+	public Integer numberOfPayments() {
+		List<Car> carsOwned = getCarsOwned();
+
+		try (Connection connection = cu.getConnection()) {
+			log.info("Number of payments made by car");
+
+			for (Car carOwned : carsOwned) {
+				String numberOfPaymentsSQL = "select count(*) ct from all_payments where customer_id = ? and car_id = ?";
+
+				PreparedStatement pstmt = connection.prepareStatement(numberOfPaymentsSQL);
+
+				pstmt.setInt(1, Integer.valueOf(Session.ID));
+				pstmt.setInt(2, carOwned.getCar_id());
+
+				ResultSet rs = pstmt.executeQuery();
+
+//				String monthsToPaySQL = "select financing from car_owner join all_payments on (car_owner.car_id = ? and all_payments.customer_id = ?)";
+				String monthsToPaySQL = "select financing from car_owner where car_id = ? and account_id = ?";
+
+				PreparedStatement monthsFinancingStmt = connection.prepareStatement(monthsToPaySQL);
+
+				monthsFinancingStmt.setInt(1, carOwned.getCar_id());
+				monthsFinancingStmt.setInt(2, Integer.valueOf(Session.ID));
+
+				ResultSet monthsFinanceRs = monthsFinancingStmt.executeQuery();
+
+				if (rs.next()) {
+					int nop = 0;
+					int totalMonths = 0;
+
+					if (monthsFinanceRs.isBeforeFirst()) {
+						monthsFinanceRs.next();
+						nop = rs.getInt("ct");
+
+						totalMonths = Integer.valueOf(monthsFinanceRs.getInt("financing"));
+					}
+
+					System.out.printf(
+							"You have %s payment(s) on a %s car with car ID [%s]. You have %d payments left.\n", nop,
+							carOwned.getBrand(), carOwned.getCar_id(), totalMonths - Integer.valueOf(rs.getInt(1)));
+				}
+			}
+			return null;
+
+		} catch (SQLException e) {
+			log.trace(e);
+			return null;
+		}
+
+	}
+
+	@Override
 	public List<Car> getCarsOwned() {
 		String sql = "select Brand, Year, Price, Car_Owner.Car_id from Car_Owner join Cars on (Car_Owner.car_id = Cars.car_id) join Accounts on (Accounts.account_id =Car_Owner.account_id) and Car_Owner.account_id=?";
 
@@ -247,6 +316,7 @@ public class CarOracle implements CarDAO {
 				cars.add(new Car(rs.getInt("car_id"), rs.getString("brand"), rs.getString("year"),
 						rs.getString("price")));
 			}
+			conn.close();
 			return cars;
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
@@ -259,9 +329,15 @@ public class CarOracle implements CarDAO {
 	public Integer acceptRejectOffers() {
 		// TODO: Validate user input assignment
 		Scanner scan = new Scanner(System.in);
-		System.out.print("Select offer to reject or accept: ");
-		int offerId = scan.nextInt();
-		scan.nextLine();
+		int offerId = 0;
+
+		try {
+			System.out.print("Select offer to reject or accept: ");
+			offerId = Integer.valueOf(scan.nextLine());
+		} catch (NumberFormatException e) {
+			log.info("Number format invalid. View pending offers on cars");
+			return null;
+		}
 
 		String callableSQL = "{CALL WHEN_INSERT_ON_CAR_OWNER()}";
 
@@ -290,7 +366,8 @@ public class CarOracle implements CarDAO {
 			ResultSet rs = viewOfferStmt.executeQuery();
 
 			if (rs.next()) {
-				System.out.printf("OfferId= [%s]\tBrand= %s\tPrice %s\tDown payment= %s\tFinancing= %s\tCustomerId= %s\n",
+				System.out.printf(
+						"OfferId= [%s]\tBrand= %s\tPrice %s\tDown payment= %s\tFinancing= %s\tCustomerId= %s\n",
 						offerId, rs.getString("brand"), rs.getString("price"), rs.getString("down_payment"),
 						rs.getString("financing"), rs.getString("customer_id"));
 

@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import com.revature.enums.UserType;
 import com.revature.menus.Menu;
 import com.revature.menus.MenuFactory;
+import com.revature.session.Session;
 
 public class Driver {
 	private static Logger log = Logger.getLogger(Driver.class);
@@ -15,8 +16,12 @@ public class Driver {
 		Menu menu = MenuFactory.getMenu(user);
 
 		while (true) {
-			log.info(menu.getClass());
+			log.trace(menu.getClass());
+			
+			System.out.printf("\nSession info: Session ID is " + Session.ID + " for user " + Session.Username +"\n");
+			
 			menu = menu.runMenu();
+			
 		}
 	}
 }

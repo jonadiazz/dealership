@@ -18,27 +18,27 @@ public class Account {
 	}
 
 	public String getAccountType() {
-		return this.accountType;
+		return this.accountType.toUpperCase();
 	}
 
 	public void setAccountType(String userType) {
-		this.accountType = userType.toString();
+		this.accountType = userType.toString().toUpperCase();
 	}
 
 	public String getUsername() {
-		return this.username;
+		return this.username.toUpperCase();
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.username = username.toUpperCase();
 	}
 
 	public String getPassword() {
-		return this.password;
+		return this.password.toUpperCase();
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = password.toUpperCase();
 	}
 
 	public void setId(int key) {

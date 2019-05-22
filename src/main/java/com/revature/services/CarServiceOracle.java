@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,7 +35,7 @@ public class CarServiceOracle implements CarService {
 	public void addCar() {
 		Scanner scan = new Scanner(System.in);
 
-		System.out.print("Enter brand: ");
+		System.out.print("Enter make: ");
 		String brand = scan.nextLine();
 
 		System.out.print("Enter year: ");
@@ -49,12 +50,15 @@ public class CarServiceOracle implements CarService {
 
 	@Override
 	public Integer removeCar() {
-		Scanner scan = new Scanner(System.in);
-		System.out.print("Select car to remove: ");
-		Integer key = scan.nextInt();
-
-		return carDAO.removeCar(key);
-
+		try {
+			Scanner scan = new Scanner(System.in);
+			System.out.print("Select car to remove: ");
+			Integer key = Integer.valueOf(scan.nextLine());
+			return carDAO.removeCar(key);
+		} catch (Exception e) {
+			System.out.println("Invalid input");
+			return null;
+		}
 	}
 
 	@Override
@@ -66,14 +70,17 @@ public class CarServiceOracle implements CarService {
 	}
 
 	@Override
-	public Integer makeOffer() {
+	public Integer makeOffer() throws NumberFormatException {
 		Scanner scan = new Scanner(System.in);
-		System.out.print("Select a car: ");
-		Integer carId = scan.nextInt();
-		System.out.print("Initial payment amount: ");
-		Integer initialPaymentAmount = scan.nextInt();
-		System.out.print("How many months of financing: ");
-		Integer monthsOfFinancing = scan.nextInt();
+
+		System.out.print("Select a car by ID ~$ ");
+		Integer carId = Integer.valueOf(scan.nextLine());
+
+		System.out.print("Initial payment amount ~$ ");
+		Integer initialPaymentAmount = Integer.valueOf(scan.nextLine());
+
+		System.out.print("How many months of financing ~$ ");
+		Integer monthsOfFinancing = Integer.valueOf(scan.nextLine());
 
 		return carDAO.makeOffer(carId, initialPaymentAmount, monthsOfFinancing);
 
@@ -84,6 +91,11 @@ public class CarServiceOracle implements CarService {
 
 		return carDAO.getCarsOwned();
 
+	}
+
+	public Integer numberOfPayments() {
+
+		return carDAO.numberOfPayments();
 	}
 
 	@Override

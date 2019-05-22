@@ -23,4 +23,6 @@ public interface CarService {
 	public Integer acceptRejectOffers();
 
 	public Integer viewPendingOffers();
+	
+	Integer numberOfPayments();
 }
