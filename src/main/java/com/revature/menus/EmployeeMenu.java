@@ -54,15 +54,21 @@ public class EmployeeMenu extends Menu {
 			return MenuFactory.getMenu(UserType.EMPLOYEE);
 
 		case 2:
-			cs.viewPendingOffers();
+			CarService css = new CarServiceOracle();
+			Integer vpo = css.viewPendingOffers();
+			if (null != vpo && vpo == 1) {
+				css.acceptRejectOffers();
+			} else {
+				System.out.print("\nNo offers to [A]ccept or [r]eject.\n");
+			}
 			
-			cs.acceptRejectOffers();
 
 			return MenuFactory.getMenu(UserType.EMPLOYEE);
 
 		case 7:
 			Session.ID = "?";
-			Session.Username ="?";
+			Session.Username ="USERNAME";
+			Session.Usertype = "USERTYPE";
 			
 			return MenuFactory.getMenu(UserType.USER);
 
@@ -77,7 +83,7 @@ public class EmployeeMenu extends Menu {
 
 				// TODO: Fix getCars as to return All cars (including those with owned_by and in_lot status
 				for (Car car : cs.getCars()) {
-					System.out.printf("<%s>\t m: %s \t\t y: %s \t\t p: $%s\n", car.getCar_id(), car.getBrand(), car.getYear(),
+					System.out.printf("<%s>\t m: %s \t\t y: %s \t p: $%s\n", car.getCar_id(), car.getBrand(), car.getYear(),
 							car.getPrice());
 				}
 				System.out.println();

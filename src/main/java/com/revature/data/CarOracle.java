@@ -144,13 +144,18 @@ public class CarOracle implements CarDAO {
 
 		Connection conn = cu.getConnection();
 
+		Integer isOffers = 0;
 		try {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 
-			System.out.println("<OfferID>");
 			while (rs.next()) {
 
+				if (isOffers == 0) {
+					System.out.println("\n<OfferID>\n");
+				}
+
+				isOffers = 1;
 				String makeOfferId = rs.getString("make_offer_id");
 				String year = rs.getString("year");
 				String make = rs.getString("brand").toUpperCase();
@@ -165,8 +170,10 @@ public class CarOracle implements CarDAO {
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
 
+		} catch (NullPointerException e) {
+			return 0;
 		}
-		return null;
+		return isOffers;
 	}
 
 	@Override
@@ -263,7 +270,7 @@ public class CarOracle implements CarDAO {
 		List<Car> carsOwned = getCarsOwned();
 
 		try (Connection connection = cu.getConnection()) {
-			log.info("Viewing remaining payments on cars.");
+			log.info("\nViewing remaining payments on cars.\n");
 
 			for (Car carOwned : carsOwned) {
 				String numberOfPaymentsSQL = "select count(*) ct from all_payments where customer_id = ? and car_id = ?";
@@ -348,10 +355,10 @@ public class CarOracle implements CarDAO {
 		int offerId = 0;
 
 		try {
-			System.out.print("Select offer to reject or accept: ");
+			System.out.print("\nSelect offer to reject or accept: ");
 			offerId = Integer.valueOf(scan.nextLine());
 		} catch (NumberFormatException e) {
-			log.info("Number format invalid. View pending offers on cars");
+			log.info("\nNumber format invalid. View pending offers on cars\n");
 			return null;
 		}
 
@@ -398,14 +405,14 @@ public class CarOracle implements CarDAO {
 				viewOfferStmt.setString(1, String.valueOf(offerId));
 
 				if ("R".equals(acceptReject.toUpperCase())) {
-					log.info("deleting MAKE_OFFER");
+					log.info("\nDeleting Offer " + offerId + "\n");
 
 					ResultSet r = rejectStmt.executeQuery();
 
 					if (r.next()) {
-						log.info("Rejected offer, removed from MAKE_OFFER table");
+						log.info("\nRejected offer, offer has been removed.\n");
 					} else {
-						log.warn("Query was not properly executed.");
+						log.warn("\nOffer " + offerId + " not removed. Query was not properly executed.\n");
 					}
 
 				} else if ("A".equals(acceptReject.toUpperCase())) {
@@ -414,18 +421,18 @@ public class CarOracle implements CarDAO {
 					rs = acceptStmt.executeQuery();
 
 					if (rs.next()) {
-						log.info("Offer accepted");
 						/** removes offer from MAKE_OFFER **/
 						callableStmt.execute();
+						log.info("\nOffer " + offerId + " was accepted.\n");
 
 					} else {
-						log.info("Offer not accepted, query was not properly executed");
+						log.info("\nOffer " + offerId + " not accepted. query was not properly executed.\n");
 					}
 				}
 			}
 
 		} catch (SQLException e) {
-			LogUtil.logException(e, Log.class);
+			LogUtil.logException(e, CarOracle.class);
 		}
 
 		return null;

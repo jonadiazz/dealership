@@ -63,9 +63,7 @@ public class CarServiceOracle implements CarService {
 
 	@Override
 	public Integer viewPendingOffers() {
-		carDAO.viewPendingOffers();
-
-		return null;
+		return carDAO.viewPendingOffers();
 
 	}
 
@@ -73,13 +71,13 @@ public class CarServiceOracle implements CarService {
 	public Integer makeOffer() throws NumberFormatException {
 		Scanner scan = new Scanner(System.in);
 
-		System.out.print("Select a car by ID ~$ ");
+		System.out.print("\nSelect a car by ID ~$ ");
 		Integer carId = Integer.valueOf(scan.nextLine());
 
-		System.out.print("Initial payment amount ~$ ");
+		System.out.print("\nInitial payment amount ~$ ");
 		Integer initialPaymentAmount = Integer.valueOf(scan.nextLine());
 
-		System.out.print("How many months of financing ~$ ");
+		System.out.print("\nHow many months of financing ~$ ");
 		Integer monthsOfFinancing = Integer.valueOf(scan.nextLine());
 
 		return carDAO.makeOffer(carId, initialPaymentAmount, monthsOfFinancing);

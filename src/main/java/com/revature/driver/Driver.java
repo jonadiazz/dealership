@@ -18,7 +18,7 @@ public class Driver {
 		while (true) {
 			log.trace(menu.getClass());
 			
-			System.out.printf("\nSession info: Session ID is " + Session.ID + " for user " + Session.Username +"\n");
+			System.out.printf("\nSession info: Session ID is " + Session.ID + " for " + Session.Usertype.toLowerCase() + " " + Session.Username +"\n");
 			
 			menu = menu.runMenu();
 			

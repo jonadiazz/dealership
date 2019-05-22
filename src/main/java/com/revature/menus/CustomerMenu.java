@@ -15,7 +15,7 @@ import com.revature.session.Session;
 
 public class CustomerMenu extends Menu {
 
-	private static Logger log = Logger.getLogger(EmployeeMenu.class);
+	private static Logger log = Logger.getLogger(CustomerMenu.class);
 
 	private String[] optionsAsCustomer = { "Make an offer for a car", "View cars on lot", "View cars I own",
 			"View remaining payments", "Sign out", };
@@ -44,7 +44,7 @@ public class CustomerMenu extends Menu {
 
 		switch (option) {
 		case 3:
-			log.info("Viewing cars owned");
+			log.info("\nViewing cars owned\n");
 			CarService carsOwned = new CarServiceOracle();
 
 			if (null != carsOwned) {
@@ -63,20 +63,20 @@ public class CustomerMenu extends Menu {
 			csoMakeOffer = new CarServiceOracle();
 			
 			if (null != csoMakeOffer) {
-				log.info("Making offer for car.");
+				log.info("\nMaking offer for car.\n");
 				int makeOfferFor = 0;
 				
 				try {
 					makeOfferFor = csoMakeOffer.makeOffer();
 				} catch (NumberFormatException numberFormatException) {
-					log.info("Invalid input number format");
+					log.info("\nInvalid input number format\n");
 					return MenuFactory.getMenu(UserType.CUSTOMER);
 				} catch (NullPointerException nullPointerException) {
-					log.info("Invalid car ID. View cars on lot.");
+					log.info("\nInvalid car ID. View cars on lot.\n");
 					return MenuFactory.getMenu(UserType.CUSTOMER);
 				}
 
-				log.info("Offer submitted");
+				log.info("\nOffer submitted\n");
 				
 				System.out.printf("\n%s are your monthly payments.\n", makeOfferFor);
 				
@@ -88,9 +88,9 @@ public class CustomerMenu extends Menu {
 			CarService cso = new CarServiceOracle();
 
 			if (null != cso) {
-				System.out.println(" \t Make \t\t Year \t\t Price");
+				System.out.println("\n \t Year \t\t Make \t\t Price");
 				for (Car car : cso.getCars()) {
-					System.out.printf("<%s>\t b: %s \t y: %s \t p: $%s\n", car.getCar_id(), car.getBrand(), car.getYear(),
+					System.out.printf("<%s>\t b: %s \t y: %s \t p: $%s\n", car.getCar_id(), car.getYear(), car.getBrand(),
 							car.getPrice());
 				}
 			}
@@ -99,7 +99,8 @@ public class CustomerMenu extends Menu {
 
 		case 5:
 			Session.ID = "?";
-			Session.Username ="?";
+			Session.Username ="USERNAME";
+			Session.Usertype = "USERTYPE";
 			
 			return MenuFactory.getMenu(UserType.USER);
 
@@ -120,7 +121,7 @@ public class CustomerMenu extends Menu {
 //				}
 //			}
 		default:
-			log.info("Site under construction. Come back later!");
+			log.info("\nSite under construction. Come back later!\n");
 			return MenuFactory.getMenu(UserType.CUSTOMER);
 		}
 	}

@@ -18,7 +18,7 @@ public class UserMenu extends Menu {
 
 	Login login = new Login();
 
-	Account account = null;
+	private Account account = null;
 
 	private static Logger log = Logger.getLogger(UserMenu.class);
 
@@ -32,18 +32,19 @@ public class UserMenu extends Menu {
 		switch (option) {
 		case 1:
 			account = login.signIn();
-			log.info("Signing in");
+			log.info("\nSigning in\n");
 
 			if (null != account) {
 				log.trace(account.getAccountType());
 				Session.Username = account.getUsername();
 				Session.Password = account.getPassword();
 				Session.ID = account.getId().toString();
+				Session.Usertype = account.getAccountType();
 
 				return MenuFactory.getMenu(account.getAccountType());
 
 			} else {
-				log.info("Failed to log in!");
+				log.info("\nFailed to log in!\n");
 
 				return MenuFactory.getMenu(UserType.USER);
 
@@ -54,8 +55,12 @@ public class UserMenu extends Menu {
 
 			if (null != accountCreated) {
 				account = login.signIn(accountCreated);
-				log.info("Account type: " + account.getAccountType());
-
+				log.info("\nAccount type: " + account.getAccountType() + "\n");
+				Session.Username = account.getUsername();
+				Session.Password = account.getPassword();
+				Session.ID = account.getId().toString();
+				Session.Usertype = account.getAccountType();
+				
 				return MenuFactory.getMenu(account.getAccountType());
 
 			}
@@ -63,7 +68,7 @@ public class UserMenu extends Menu {
 			return MenuFactory.getMenu(UserType.USER);
 
 		case 4:
-			System.out.println("Signing out. Until next time.");
+			System.out.println("\nSigning out. Until next time.\n");
 			System.exit(1);
 
 		case 3:
