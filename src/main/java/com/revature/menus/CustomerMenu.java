@@ -76,9 +76,10 @@ public class CustomerMenu extends Menu {
 					return MenuFactory.getMenu(UserType.CUSTOMER);
 				}
 
-				System.out.printf("%s are your monthly payments.\n", makeOfferFor);
-				
 				log.info("Offer submitted");
+				
+				System.out.printf("\n%s are your monthly payments.\n", makeOfferFor);
+				
 			}
 
 			return MenuFactory.getMenu(UserType.CUSTOMER);

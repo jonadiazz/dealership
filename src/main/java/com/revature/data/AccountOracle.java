@@ -62,6 +62,27 @@ public class AccountOracle implements AccountDAO {
 	}
 
 	@Override
+	public String getCustomerUsernameById(Integer customerId) {
+		String sql = "select username from Accounts where account_id = ?";
+		
+		try (Connection conn = cu.getConnection()) {
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, customerId);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			if (rs.next()) {
+				return String.valueOf(rs.getString("username"));
+			}
+			
+		} catch (Exception e) {
+			log.trace(e);
+			return null;
+		}
+		return null;
+	}
+	
+	@Override
 	public Account getAccount(String username, String password) {
 		String sql = "select * from Accounts";
 

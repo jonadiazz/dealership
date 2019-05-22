@@ -5,12 +5,14 @@ public class Payment {
 	private String paymentAmount;
 	private Integer carId;
 	private Integer customerId;
-
+	private Integer paymentId;
+	
 	public Payment(String paymentAmount, Integer carId, Integer customerId) {
 		this.paymentAmount = paymentAmount;
 		this.carId = carId;
 		this.customerId = customerId;
 	}
+	
 	public String getPaymentAmount() {
 		return paymentAmount;
 	}
@@ -33,6 +35,12 @@ public class Payment {
 
 	public void setCustomerId(Integer customerId) {
 		this.customerId = customerId;
+	}
+	public Integer getPaymentId() {
+		return paymentId;
+	}
+	public void setPaymentId(Integer paymentId) {
+		this.paymentId = paymentId;
 	}
 
 }

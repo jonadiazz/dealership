@@ -20,7 +20,7 @@ import com.revature.utils.LogUtil;
 import oracle.jdbc.logging.annotations.Log;
 
 public class CarOracle implements CarDAO {
-	private static Logger log = Logger.getLogger(AccountOracle.class);
+	private static Logger log = Logger.getLogger(CarOracle.class);
 	private static DBConnection cu = DBConnection.getDBConnection();
 
 	@Override
@@ -148,12 +148,19 @@ public class CarOracle implements CarDAO {
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 
-			System.out.println("<Offer ID>");
+			System.out.println("<OfferID>");
 			while (rs.next()) {
-				System.out.printf("<%s> \t %s %s at $%s, %s bids with a %s down payment and at %s months financing\n\n",
-						rs.getString("make_offer_id"), rs.getString("year"), rs.getString("brand").toUpperCase(),
-						rs.getString("price"), rs.getString("username").toUpperCase(), rs.getString("down_payment"),
-						rs.getString("financing"));
+
+				String makeOfferId = rs.getString("make_offer_id");
+				String year = rs.getString("year");
+				String make = rs.getString("brand").toUpperCase();
+				String price = rs.getString("price");
+				String username = rs.getString("username").toUpperCase();
+				String downPayment = rs.getString("down_payment");
+				String financing = rs.getString("financing");
+				
+				System.out.printf("\n<%s> \t %s %s at $%s, %s bids with a %s down payment and at %s months financing\n", makeOfferId, year, make, price, username, downPayment, financing);
+				
 			}
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
@@ -191,8 +198,6 @@ public class CarOracle implements CarDAO {
 				}
 			}
 
-			log.info(Session.ID);
-
 			if (result != 0) {
 				conn.commit();
 			} else {
@@ -223,11 +228,11 @@ public class CarOracle implements CarDAO {
 
 	}
 
-	private Car getCarById(Integer carId) {
+	public Car getCarById(Integer carId) {
 		return getCarById(carId, cu.getConnection());
 	}
 
-	private Car getCarById(Integer carId, Connection conn) {
+	public Car getCarById(Integer carId, Connection conn) {
 		String sql = "select * from Cars where car_id=?";
 		Car car = null;
 
@@ -237,10 +242,15 @@ public class CarOracle implements CarDAO {
 
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				car = new Car(Integer.valueOf(rs.getString("car_id")), rs.getString("brand"), rs.getString("year"),
-						rs.getString("price"));
+				String make = rs.getString("brand");
+				String year = rs.getString("year");
+				String price = rs.getString("price");
+				
+				car = new Car(carId, make, year, price);
 			}
+			
 			return car;
+			
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
 		}
@@ -253,7 +263,7 @@ public class CarOracle implements CarDAO {
 		List<Car> carsOwned = getCarsOwned();
 
 		try (Connection connection = cu.getConnection()) {
-			log.info("Number of payments made by car");
+			log.info("Viewing remaining payments on cars.");
 
 			for (Car carOwned : carsOwned) {
 				String numberOfPaymentsSQL = "select count(*) ct from all_payments where customer_id = ? and car_id = ?";
@@ -265,7 +275,6 @@ public class CarOracle implements CarDAO {
 
 				ResultSet rs = pstmt.executeQuery();
 
-//				String monthsToPaySQL = "select financing from car_owner join all_payments on (car_owner.car_id = ? and all_payments.customer_id = ?)";
 				String monthsToPaySQL = "select financing from car_owner where car_id = ? and account_id = ?";
 
 				PreparedStatement monthsFinancingStmt = connection.prepareStatement(monthsToPaySQL);
@@ -313,11 +322,18 @@ public class CarOracle implements CarDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				cars.add(new Car(rs.getInt("car_id"), rs.getString("brand"), rs.getString("year"),
-						rs.getString("price")));
+				int carId = rs.getInt("car_id");
+				String make = rs.getString("brand");
+				String year = rs.getString("year");
+				String price = rs.getString("price");
+				
+				cars.add(new Car(carId, make, year, price));
 			}
+			
 			conn.close();
+			
 			return cars;
+			
 		} catch (SQLException e) {
 			LogUtil.logException(e, Log.class);
 		}
@@ -376,10 +392,9 @@ public class CarOracle implements CarDAO {
 
 				if (scan.hasNext()) {
 					acceptReject = scan.nextLine();
-					log.info(acceptReject);
+					log.trace(CarOracle.class);
 				}
 
-//				rejectStmt = conn.prepareCall(rejectSQL);
 				viewOfferStmt.setString(1, String.valueOf(offerId));
 
 				if ("R".equals(acceptReject.toUpperCase())) {
@@ -402,7 +417,6 @@ public class CarOracle implements CarDAO {
 						log.info("Offer accepted");
 						/** removes offer from MAKE_OFFER **/
 						callableStmt.execute();
-//						rejectStmt.executeQuery();
 
 					} else {
 						log.info("Offer not accepted, query was not properly executed");

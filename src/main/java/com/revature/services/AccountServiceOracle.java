@@ -18,4 +18,9 @@ public class AccountServiceOracle implements AccountService {
 		return accountDAO.getAccount(username, password);
 	}
 
+	@Override
+	public String getCustomerUsernameById(Integer customerId) {
+		return accountDAO.getCustomerUsernameById(customerId);
+	}
+
 }

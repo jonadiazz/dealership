@@ -21,26 +21,29 @@ public class PaymentOracle implements PaymentDAO {
 
 	@Override
 	public List<Payment> getPayments() {
-		
+
 		String getPaymentsSQL = "SELECT * FROM ALL_PAYMENTS";
-//		String getPaymentsSQL = "SELECT * FROM ALL_PAYMENTS WHERE CUSTOMER_ID = ?";
-		
+
 		List<Payment> payments = new ArrayList<Payment>();
-		
+
 		try (Connection connection = dbConnection.getConnection()) {
 			PreparedStatement getPaymentStmt = connection.prepareStatement(getPaymentsSQL);
-			
-//			getPaymentStmt.setInt(1, Integer.valueOf(Session.ID));
-			
-			ResultSet rs =  getPaymentStmt.executeQuery();
-			
+
+			ResultSet rs = getPaymentStmt.executeQuery();
+
 			while (rs.next()) {
-				Payment payment = new Payment(rs.getString("payment"), rs.getInt("car_id"), rs.getInt("customer_id"));
+				Integer customerId = rs.getInt("customer_id");
+				Integer carId = rs.getInt("car_id");
+				String paid = rs.getString("payment");
+				Integer paymentId = rs.getInt("payment_id");
+
+				Payment payment = new Payment(paid, carId, customerId);
+				payment.setPaymentId(paymentId);
 				payments.add(payment);
 			}
-			
+
 			return payments;
-			
+
 		} catch (Exception e) {
 			LogUtil.logException(e, PaymentOracle.class);
 		}
@@ -84,7 +87,6 @@ public class PaymentOracle implements PaymentDAO {
 			}
 		}
 
-		// TODO Auto-generated method stub
 		return null;
 	}
 

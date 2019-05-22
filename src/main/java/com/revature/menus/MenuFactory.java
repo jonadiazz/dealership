@@ -34,11 +34,6 @@ public class MenuFactory {
 
 		}
 
-		if (user.equals(UserType.REGISTER.toString())) {
-			return new RegisterMenu();
-
-		}
-
 		return null;
 
 	}

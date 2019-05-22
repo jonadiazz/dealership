@@ -105,4 +105,11 @@ public class CarServiceOracle implements CarService {
 
 	}
 
+	@Override
+	public Car getCarById(Integer carId) {
+
+		return carDAO.getCarById(carId);
+
+	}
+
 }

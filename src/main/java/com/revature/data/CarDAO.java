@@ -23,5 +23,7 @@ public interface CarDAO {
 	Integer viewPendingOffers();
 	
 	Integer numberOfPayments();
+	
+	Car getCarById(Integer carId);
 
 }

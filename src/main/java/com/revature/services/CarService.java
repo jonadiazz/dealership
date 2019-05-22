@@ -25,4 +25,6 @@ public interface CarService {
 	public Integer viewPendingOffers();
 	
 	Integer numberOfPayments();
+	
+	Car getCarById(Integer carId);
 }

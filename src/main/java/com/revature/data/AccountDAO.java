@@ -7,4 +7,6 @@ public interface AccountDAO {
 	int addAccount(Account account);
 
 	Account getAccount(String username, String password);
+
+	String getCustomerUsernameById(Integer customerId);
 }

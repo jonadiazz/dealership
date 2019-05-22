@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 import com.revature.beans.Car;
 import com.revature.beans.Payment;
 import com.revature.enums.UserType;
+import com.revature.services.AccountService;
+import com.revature.services.AccountServiceOracle;
 import com.revature.services.CarService;
 import com.revature.services.CarServiceOracle;
 import com.revature.services.PaymentService;
@@ -71,13 +73,14 @@ public class EmployeeMenu extends Menu {
 
 		case 5:
 			if (null != cs) {
-				System.out.println(" \t Make \t\t Year \t\t Price");
+				System.out.println("\n \t Make   \t\t   Year   \t   Price");
 
 				// TODO: Fix getCars as to return All cars (including those with owned_by and in_lot status
 				for (Car car : cs.getCars()) {
-					System.out.printf("<%s>\t b: %s \t y: %s \t p: $%s\n", car.getCar_id(), car.getBrand(), car.getYear(),
+					System.out.printf("<%s>\t m: %s \t\t y: %s \t\t p: $%s\n", car.getCar_id(), car.getBrand(), car.getYear(),
 							car.getPrice());
 				}
+				System.out.println();
 			}
 
 			return MenuFactory.getMenu(UserType.EMPLOYEE);
@@ -98,10 +101,14 @@ public class EmployeeMenu extends Menu {
 			PaymentService paymentService = new PaymentServiceOracle();
 			
 			if (null != paymentService) {
+				CarService carService = new CarServiceOracle();
+				AccountService accountService = new AccountServiceOracle();
+				
 				for(Payment p: paymentService.getPayments()) {
-//					Session.ID = String.valueOf(p.getCustomerId());
-//					new CarServiceOracle().getCarsOwned();
-					System.out.printf("Customer %s has paid %s for a car with ID [%s]\n", p.getCustomerId(), p.getPaymentAmount(), p.getCarId());
+					Car car = carService.getCarById(p.getCarId());
+					String username = accountService.getCustomerUsernameById(p.getCustomerId());
+					
+					System.out.printf("\nPayment ID: <%s> Customer %s has made a payment for %s car ID <%s>\n", p.getPaymentId(), username, car.getBrand(), p.getCarId());
 				}
 			}
 			return MenuFactory.getMenu(UserType.EMPLOYEE);
